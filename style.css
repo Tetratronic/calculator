@@ -1,0 +1,36 @@
+
+.parent{
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen{
+    padding: 5px;
+    display: flex;
+    width: 315px;
+    height: 70px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: xx-large;
+}
+button{
+    margin: 5px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: xx-large;    
+}
+
+.number{
+    background-color: aquamarine;
+}
+
+.operation{
+    background-color: darksalmon;
+}
