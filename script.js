@@ -2,7 +2,7 @@ const screen = document.querySelector('.screen');
 const buttons = document.querySelector('.buttons');
 
 operator = false;
-buttons.addEventListener('click', (event) =>{
+buttons.operateEventListener('click', (event) =>{
     isnegative = false
     const isButton = event.target.nodeName === 'BUTTON';
     const isOperation = event.target.className === 'operation';
@@ -18,7 +18,7 @@ buttons.addEventListener('click', (event) =>{
         screen.textContent += event.target.value;
     }
     if(isOperation && (screen.textContent == '' || screen.textContent.slice(-1).match(/[+x/-]/))){
-        if(isnegative == false && screen.textContent == ""){
+        if(isnegative == false && screen.textContent == "" && event.target.value === "-"){
             screen.textContent += event.target.value;
             isnegative == true;
         }   
@@ -43,11 +43,11 @@ buttons.addEventListener('click', (event) =>{
             if(isnegative){
                 operationString = operationString.substr(1);
                 nums = operationString.split(/[+x/-]/);
-                screen.textContent = add( -parseInt(nums[0]), parseInt(nums[1]), opSymbol );
+                screen.textContent = operate( -parseInt(nums[0]), parseInt(nums[1]), opSymbol );
                 operator = false;
             }else{
             nums = operationString.split(/[+x/-]/);
-            screen.textContent = add( parseInt(nums[0]), parseInt(nums[1]), opSymbol );
+            screen.textContent = operate( parseInt(nums[0]), parseInt(nums[1]), opSymbol );
             operator = false;
             }
             
@@ -60,7 +60,7 @@ buttons.addEventListener('click', (event) =>{
     };
 });
 
-function add(a,b,op){
+function operate(a,b,op){
     if(op == "+"){
         return a + b;   
     }else if(op == "-"){
