@@ -1,8 +1,9 @@
 const screen = document.querySelector('.screen');
 const buttons = document.querySelector('.buttons');
-operand =''
+
 operator = false;
 buttons.addEventListener('click', (event) =>{
+    isnegative = false
     const isButton = event.target.nodeName === 'BUTTON';
     const isOperation = event.target.className === 'operation';
     const clearButton = event.target.id === 'clear'
@@ -17,24 +18,35 @@ buttons.addEventListener('click', (event) =>{
         screen.textContent += event.target.value;
     }
     if(isOperation && (screen.textContent == '' || screen.textContent.slice(-1).match(/[+x/-]/))){
+        if(isnegative == false && screen.textContent == ""){
+            screen.textContent += event.target.value;
+            isnegative == true;
+        }   
         return;
     };
 
     if (isOperation || equalButton){
-        if(!operator){        
+        if(!operator){    
             screen.textContent += event.target.value;
-            operand = event.target.value;       
-            console.log(operand)
+            opSymbol = event.target.value;       
             operator = true;
             
 
         }else{
             operationString = screen.textContent;
+            if(operationString[0] == "-"){
+                isnegative = true;
+            }
+            if(isnegative){
+                operationString = operationString.substr(1);
+                nums = operationString.split(/[+x/-]/);
+                screen.textContent = add( -parseInt(nums[0]), parseInt(nums[1]), opSymbol );
+            }else{
             nums = operationString.split(/[+x/-]/);
-            console.log("hi");
-            screen.textContent = add( parseInt(nums[0]), parseInt(nums[1]), operand );
-            console.log(add( parseInt(nums[0]), parseInt(nums[1]), operand ));
+            screen.textContent = add( parseInt(nums[0]), parseInt(nums[1]), opSymbol );
             operator = false;
+            }
+            
 
         }
 
