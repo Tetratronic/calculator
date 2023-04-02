@@ -1,6 +1,7 @@
 const screen = document.querySelector('.screen');
 const buttons = document.querySelector('.buttons');
 operator = false;
+decimal = false;
 buttons.addEventListener('click', (event) =>{
     isnegative = false
     const isButton = event.target.nodeName === 'BUTTON';
@@ -10,16 +11,22 @@ buttons.addEventListener('click', (event) =>{
     const equalButton = event.target.id === 'equal'
     if (clearButton){
         screen.textContent = ''
+        operator = false;
+        decimal = false;
+        isnegative = false;
     };
     if (!isButton){
         return
     };
 
-    if(isDecimal && (screen.textContent == '' || !screen.textContent.slice(-1).match(/\d/))){
+    if(isDecimal && (screen.textContent == '' || !screen.textContent.slice(-1).match(/\d/) || decimal == true)){
         return
     };
 
     if(!isOperation){
+        if(isDecimal){
+            decimal = true;
+        }
         screen.textContent += event.target.value;
     }
 
@@ -39,6 +46,7 @@ buttons.addEventListener('click', (event) =>{
             screen.textContent += event.target.value;
             opSymbol = event.target.value;       
             operator = true;
+            decimal = false;
             
 
         }else{
@@ -51,17 +59,16 @@ buttons.addEventListener('click', (event) =>{
                 nums = operationString.split(/[+x/-]/);
                 screen.textContent = operate( -parseFloat(nums[0]), parseFloat(nums[1]), opSymbol );
                 operator = false;
+                decimal = false;
             }else{
             nums = operationString.split(/[+x/-]/);
             screen.textContent = operate( parseFloat(nums[0]), parseFloat(nums[1]), opSymbol );
             operator = false;
+            decimal = false;
             }
             
 
         }
-
-        if(!nums[1] || nums.lenght > 2 ){
-            return;};
 
     };
 });
