@@ -2,7 +2,7 @@ const screen = document.querySelector('.screen');
 const buttons = document.querySelector('.buttons');
 
 operator = false;
-buttons.operateEventListener('click', (event) =>{
+buttons.addEventListener('click', (event) =>{
     isnegative = false
     const isButton = event.target.nodeName === 'BUTTON';
     const isOperation = event.target.className === 'operation';
@@ -43,11 +43,11 @@ buttons.operateEventListener('click', (event) =>{
             if(isnegative){
                 operationString = operationString.substr(1);
                 nums = operationString.split(/[+x/-]/);
-                screen.textContent = operate( -parseInt(nums[0]), parseInt(nums[1]), opSymbol );
+                screen.textContent = operate( -parseFloat(nums[0]), parseFloat(nums[1]), opSymbol );
                 operator = false;
             }else{
             nums = operationString.split(/[+x/-]/);
-            screen.textContent = operate( parseInt(nums[0]), parseInt(nums[1]), opSymbol );
+            screen.textContent = operate( parseFloat(nums[0]), parseFloat(nums[1]), opSymbol );
             operator = false;
             }
             
