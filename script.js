@@ -1,11 +1,11 @@
 const screen = document.querySelector('.screen');
 const buttons = document.querySelector('.buttons');
-
 operator = false;
 buttons.addEventListener('click', (event) =>{
     isnegative = false
     const isButton = event.target.nodeName === 'BUTTON';
     const isOperation = event.target.className === 'operation';
+    const isDecimal = event.target.className === 'decimal';
     const clearButton = event.target.id === 'clear'
     const equalButton = event.target.id === 'equal'
     if (clearButton){
@@ -14,9 +14,15 @@ buttons.addEventListener('click', (event) =>{
     if (!isButton){
         return
     };
+
+    if(isDecimal && (screen.textContent == '' || !screen.textContent.slice(-1).match(/\d/))){
+        return
+    };
+
     if(!isOperation){
         screen.textContent += event.target.value;
     }
+
     if(isOperation && (screen.textContent == '' || screen.textContent.slice(-1).match(/[+x/-]/))){
         if(isnegative == false && screen.textContent == "" && event.target.value === "-"){
             screen.textContent += event.target.value;
