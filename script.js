@@ -26,6 +26,9 @@ buttons.addEventListener('click', (event) =>{
     };
 
     if (isOperation || equalButton){
+        if((equalButton && !operator) || (equalButton && operator && screen.textContent.slice(-1).match(/[+x/-]/))){
+            return;
+        }
         if(!operator){    
             screen.textContent += event.target.value;
             opSymbol = event.target.value;       
@@ -41,6 +44,7 @@ buttons.addEventListener('click', (event) =>{
                 operationString = operationString.substr(1);
                 nums = operationString.split(/[+x/-]/);
                 screen.textContent = add( -parseInt(nums[0]), parseInt(nums[1]), opSymbol );
+                operator = false;
             }else{
             nums = operationString.split(/[+x/-]/);
             screen.textContent = add( parseInt(nums[0]), parseInt(nums[1]), opSymbol );
